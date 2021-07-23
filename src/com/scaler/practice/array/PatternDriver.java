@@ -7,7 +7,7 @@ package com.scaler.practice.array;
 public class PatternDriver {
     public static void main(String[] args) {
         PatternBuilder patternBuilder = new PatternBuilder();
-        int[][] patternArray = patternBuilder.solve(10);
+        int[][] patternArray = patternBuilder.solve(4);
         displayPattern(patternArray);
     }
 
