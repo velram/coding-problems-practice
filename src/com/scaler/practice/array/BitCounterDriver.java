@@ -8,7 +8,8 @@ package com.scaler.practice.array;
 public class BitCounterDriver {
     public static void main(String[] args) {
         BitCounter bitCounter = new BitCounter();
-        bitCounter.countBits(4);
+        int bitCount = bitCounter.countBits(4);
+        System.out.println("Total number fo setBits (1) is : " + bitCount);
     }
 }
 
@@ -36,6 +37,7 @@ class BitCounter{
             number = quotient;
             remainder = number % 2;
             quotient = number / 2;
+            //System.out.println(" Number : " + number + "Remainder : " + remainder + " | quotient : " + quotient);
         }
 
         if(remainder == 1){
