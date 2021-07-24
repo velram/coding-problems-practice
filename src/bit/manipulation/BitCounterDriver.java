@@ -1,4 +1,4 @@
-package com.scaler.practice.array;
+package bit.manipulation;
 
 /**
  * This class will be used to Calculate no.of "1" bits in binary equivalent of a decimal number
