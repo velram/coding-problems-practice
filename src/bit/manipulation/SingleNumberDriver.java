@@ -3,7 +3,9 @@ package bit.manipulation;
 /**
  * @author Velmurugan Moorthy
  * @date 23.07.2021
- * Finding a single number in a collection of duplicate (2 times) 
+ * Finding a single number in a collection of duplicate (2 times)
+ * Sample input : {1, 2, 2, 3, 1};
+ * Sample output : 3
  */
 public class SingleNumberDriver {
     public static void main(String[] args) {
