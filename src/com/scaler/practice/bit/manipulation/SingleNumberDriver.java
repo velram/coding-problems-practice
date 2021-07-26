@@ -1,4 +1,4 @@
-package bit.manipulation;
+package com.scaler.practice.bit.manipulation;
 
 /**
  * @author Velmurugan Moorthy

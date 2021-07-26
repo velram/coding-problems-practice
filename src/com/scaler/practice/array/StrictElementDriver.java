@@ -63,9 +63,9 @@ public class StrictElementDriver {
 class StrictElementFinder {
     public int findStrictElementCount(int[] inputs){
 
-        int arraySize = inputs.length;
+        int inputSize = inputs.length;
 
-        if(arraySize < 3){
+        if(inputSize < 3){
             return 0;
         }
 
@@ -76,13 +76,9 @@ class StrictElementFinder {
         sortedList.stream().forEach(System.out::println);
         System.out.println("======================");
         sortedFilteredInputs.stream().forEach(System.out::println);
-        for(int loopIndex = 1; loopIndex < sortedFilteredInputs.size() - 1; loopIndex++) {
-            boolean isSmaller = sortedFilteredInputs.get(loopIndex-1) < sortedFilteredInputs.get(loopIndex);
-            boolean isGreater = sortedFilteredInputs.get(loopIndex) < sortedFilteredInputs.get(loopIndex + 1);
-            //System.out.println("isSmaller :  " + isSmaller + " || isGreater : " + isGreater);
-            if(isSmaller && isGreater){
-                strictElementCount++;
-            }
+        int pointer = 0;
+        for(int loopIndex = 1; loopIndex < inputSize; loopIndex++) {
+           // for(int innerLoopIndex = loopIndex);
         }
 
         return strictElementCount;
