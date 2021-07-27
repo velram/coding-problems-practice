@@ -21,7 +21,12 @@ public class BinaryAdderDriver {
     public static void main(String[] args) {
 
         BinaryAdder binaryAdder = new BinaryAdder();
-        binaryAdder.addBinaryNumbers("01", "10");
+//        binaryAdder.addBinaryNumbers("01", "10");//Test case #1 - Simple flow - PASS
+//        binaryAdder.addBinaryNumbers("00", "00");//Test case #2 - all zeros - PASS
+//        binaryAdder.addBinaryNumbers("00", "0");//Test case #3 - one of operand size lesser than other one - PASS
+//        binaryAdder.addBinaryNumbers("11", "11");//Test case #4 - all '1's  in both operand
+//        binaryAdder.addBinaryNumbers("11111", "11111");//Test case #5 - all 1's in both operands
+          binaryAdder.addBinaryNumbers("1010110111001101101000", "1000011011000000111100110");
     }
 }
 
@@ -36,26 +41,37 @@ class BinaryAdder {
         }
 
         int maxDigits = 0;
-        char[] number1;
-        char[] number2;
+        String largerNumber = "";
+        String smallerNumber = "";
 
         if(input1.length() > input2.length()){
             maxDigits = input1.length();
-//            number1 = input1.toCharArray();
-//            number2 = input2.toCharArray();
+            largerNumber = input1;
+            smallerNumber = input2;
         }
         else {
             maxDigits = input2.length();
-//            number1 = input2.toCharArray();
-//            number2 = input1.toCharArray();
+            largerNumber = input2;
+            smallerNumber = input1;
         }
 
         int[] result = new int[maxDigits];
         int carryBit = 0;
         int resultBit = 0;
+        int operand1 = 0;
+        int operand2 = 0;
+        int smallerNumberIndex = maxDigits;
+        for(int loopIndex = maxDigits-1; loopIndex >= 0 ; loopIndex--){
 
-        for(int loopIndex = maxDigits-1; loopIndex >= 0; loopIndex--){
-            if(input1.charAt(loopIndex) == '1' && input1.charAt(loopIndex) == '1'){
+            if(loopIndex >= maxDigits - (maxDigits - smallerNumber.length()) - 1){
+                operand2 = 0;
+            }
+            else{
+                operand2 = Character.getNumericValue(smallerNumber.charAt(loopIndex - (maxDigits - smallerNumber.length())));
+            }
+            operand1 = Character.getNumericValue(largerNumber.charAt(loopIndex));
+
+            if(operand1 == 1 && operand2 == 1){
                 if(carryBit == 1){
                     resultBit = 1;
                 }
@@ -65,9 +81,8 @@ class BinaryAdder {
                 carryBit = 1;
             }
             else {
-                resultBit = Character.getNumericValue(input1.charAt(loopIndex)) |
-                            Character.getNumericValue(input2.charAt(loopIndex));
-                carryBit = 0;
+                    resultBit = operand1 | operand2;
+                    carryBit = 0;
             }
             result[loopIndex] = resultBit;
         }
