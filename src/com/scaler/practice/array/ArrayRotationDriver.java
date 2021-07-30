@@ -9,18 +9,26 @@ public class ArrayRotationDriver {
 //        int[] input = {1, 2, 3, 4};
 //        int rotations = 2;
 
-        //Test case #2 - FAILED
+        //Test case #2 -  arraySize = no.of.rotations (odd) - PASS
 //        int[] input = {1,2};
 //        int rotations = 2;
 
         //TODO fix failing test cases (length >= rotation - scenarios)
-        //Test case #3 - FAILED
+        //Test case #3 - arraySize = no.of.rotations (even number) - PASS
 //        int[] input = {1, 2, 2};
 //        int rotations = 3;
 
-        //Test case #3 - FAILED
-        int[] input = {1};
-        int rotations = 3;
+        //Test case #4 - Single element array - multiple rotations - PASS
+//        int[] input = {1};
+//        int rotations = 3;
+
+        //Test case #5 - arraySize > rotations (arraysize even, rotation odd)
+//        int[] input = {1, 2, 3, 4};
+//        int rotations = 5;
+
+        //Test case #6 - arraySize > rotations (arraysize odd, rotation even)
+        int[] input = {1, 2, 3, 4, 5, 7, 8, 9};
+        int rotations = 12;
         ArrayRotater arrayRotater = new ArrayRotater();
         arrayRotater.rotateArray(input, rotations);
 
@@ -37,8 +45,13 @@ class ArrayRotater {
             return;
         }
 
-        if(rotations % (2 * length) == 0){
+        if(rotations % (length) == 0){
+            printArray(input);
+            return;
+        }
 
+        if(rotations > length){
+            rotations = rotations % length;
         }
 
         int[] result = new int[input.length];
