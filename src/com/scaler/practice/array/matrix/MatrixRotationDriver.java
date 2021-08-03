@@ -1,4 +1,4 @@
-package com.scaler.practice.array;
+package com.scaler.practice.array.matrix;
 
 /**
  * @author Velmurugan
@@ -84,6 +84,6 @@ public class MatrixRotationDriver {
 
 class MatrixRotater {
     public int[][] rotateMatrix(){
-        
+        return null;
     }
 }
