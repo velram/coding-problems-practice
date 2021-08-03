@@ -98,7 +98,7 @@ class ArrayRotater {
 
         int length = input.length;
 
-        if(length == 1 ){
+        if(length <= 1 ){
             System.out.println(input[0]);
             return;
         }
@@ -108,12 +108,12 @@ class ArrayRotater {
             return;
         }
 
-        if(rotations > length){
+        if(rotations >= length){
             rotations = rotations % length;
         }
 
         int[] result = new int[input.length];
-        int oldArrayIndex = rotations;
+        int oldArrayIndex = length - rotations;
         //int newArrayIndex = 0;
 
         for(int loopIndex = 0; loopIndex < length; loopIndex++){
@@ -131,8 +131,10 @@ class ArrayRotater {
     }
 
     private void printArray(int[] result) {
+        //System.out.println("Rotated array is :  ");
         Arrays.stream(result).forEach(element -> {
-            System.out.print(" " + element);
+            System.out.print(element+ " ");
         });
+        System.out.println();
     }
 }
