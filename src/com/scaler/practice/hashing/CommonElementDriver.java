@@ -101,7 +101,6 @@ class CommonElementFinder{
             int elementCount = elementCountEntry.getValue().intValue();
 
             if(elementCountMap2.containsKey(element)){
-                //Look for element count & populate the array that many times
                 int count2 = elementCountMap2.get(element);
                 for(int tempIndex = 0; tempIndex < (Math.min(elementCount, count2)); tempIndex++){
                     resultList.add(element);
