@@ -1,4 +1,4 @@
-package com.scaler.practice.array;
+package com.scaler.practice.array.pattern;
 
 /**
  * @author Velmurugan Moorthy
