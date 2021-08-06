@@ -1,5 +1,8 @@
 package com.scaler.practice.array;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  *
  * @author Velmurugan
@@ -71,10 +74,10 @@ package com.scaler.practice.array;
 public class SpecialSequenceDriver {
     public static void main(String[] args) {
 
-//        String input = "ABCGAG";//Test case #1 - Sample input in question - PASS
-//        String input = "A";//Test case #2- One char string- PASS
+        String input = "ABCGAG";//Test case #1 - Sample input in question - PASS
+//        String input = "A";//Test case #2- One char string (0 subseq) - PASS
 //        String input = "GAB";//Test case #3 - No subsequence found - PASS
-        String input = "AGAGAGAGAGAG";//Test case #All elements are pairs - PASS
+//        String input = "AGAGAGAGAGAG";//Test case #All elements are pairs - PASS
         //String input = "";//Test case #
         //String input = "";//Test case #
         //String input = "";//Test case #
@@ -98,16 +101,15 @@ class SubsequenceCounter {
         }
 
         int subsequenceCount = 0;
+        int secondCharCount = 0;
 
-        for(int loopIndex = 0; loopIndex < input.length(); loopIndex++){
-            if(input.charAt(loopIndex) == 'A'){
-                int secondCharIndex = loopIndex + 1;
-                while(secondCharIndex < input.length()){
-                    if(input.charAt(secondCharIndex) == 'G'){
-                     subsequenceCount++;
-                    }
-                    secondCharIndex++;
-                }
+        for(int loopIndex = input.length() - 1; loopIndex >= 0; loopIndex--){
+
+            if(input.charAt(loopIndex) == 'G'){
+                secondCharCount++;
+            }
+            else if(input.charAt(loopIndex) == 'A'){
+                subsequenceCount += secondCharCount;
             }
         }
 
