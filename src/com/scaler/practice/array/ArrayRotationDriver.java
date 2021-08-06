@@ -1,6 +1,9 @@
 package com.scaler.practice.array;
 
 import java.util.Arrays;
+import java.util.Scanner;
+
+
 
 /**
  *
@@ -76,9 +79,81 @@ import java.util.Arrays;
  *
  *  [1,2,2] => [2,1,2] => [2,2,1] => [1,2,2]
  */
-public class ArrayRotationDriver {
-}
 
+public class ArrayRotationDriver {
+  
+        //Test case #1 - Happy flow from sample input - PASS
+//        int[] input = {1, 2, 3, 4};
+//        int rotations = 2;
+
+        //Test case #2 -  arraySize = no.of.rotations (odd) - PASS
+//        int[] input = {1,2};
+//        int rotations = 2;
+
+
+        //Test case #3 - arraySize = no.of.rotations (even number) - PASS
+//        int[] input = {1, 2, 2};
+//        int rotations = 3;
+
+        //Test case #4 - Single element array - multiple rotations - PASS
+//        int[] input = {1};
+//        int rotations = 3;
+
+        //Test case #5 - arraySize > rotations (arraysize even, rotation odd)
+//        int[] input = {1, 2, 3, 4};
+//        int rotations = 5;
+
+        //Test case #6 - arraySize > rotations (arraysize odd, rotation even)
+        //int[] input = {1, 2, 3, 4, 5, 7, 8, 9};
+//        int rotations = 12;
+
+//        int[] input = {1, 2, 4};
+//        int rotations = 1;
+//        ArrayRotater arrayRotater = new ArrayRotater();
+//        arrayRotater.rotateArray(input, rotations);
+
+    public static void main(String[] args) {
+
+
+        ArrayRotater arrayRotater = new ArrayRotater();
+        Scanner reader = new Scanner(System.in);
+
+        //System.out.println("Before reading input");
+
+        int testCaseCount = 0;
+        if(reader.hasNext()){
+            testCaseCount = Integer.parseInt(reader.next());
+            System.out.println("Test case count : " + testCaseCount);
+        }
+        for(int loopIndex = 0; loopIndex < testCaseCount; loopIndex++){
+            int elementCount = 0;
+            if(reader.hasNext()){
+                elementCount = Integer.parseInt(reader.next());
+
+                System.out.println("\nelementCount : " + elementCount);
+            }
+            int[] inputArray = new int[elementCount];
+            for(int innerLoopIndex = 0; innerLoopIndex < elementCount; innerLoopIndex++){
+                if(reader.hasNext()){
+                    inputArray[innerLoopIndex] = Integer.parseInt(reader.next());
+                    System.out.println("InputArray[" + innerLoopIndex + "] : " + inputArray[innerLoopIndex]);
+                }
+            }
+
+            //System.out.println("Inner loop after reading element : ");
+            int rotationCount = 0;
+            if(reader.hasNext()){
+                rotationCount = Integer.parseInt(reader.next());
+                System.out.println("rotationCount : " + rotationCount);
+            }
+            //System.out.println("Inner loop after reading rotation count : " + rotationCount);
+            arrayRotater.rotateArray(inputArray, rotationCount);
+
+        }
+
+
+    }
+}
 
 class ArrayRotater {
     public void rotateArray(int[] input, int rotations){
@@ -123,5 +198,6 @@ class ArrayRotater {
             System.out.print(element+ " ");
         });
         System.out.println();
-    }
+    
+}
 }
