@@ -137,13 +137,13 @@ public class PascalTriangleDriver {
     public static void main(String[] args) {
         PascalTriangleBuilder pascalTriangleBuilder = new PascalTriangleBuilder();
         int[][] pascalTriangle = pascalTriangleBuilder.solve(5);
-        pascalTriangleBuilder.displayPattern(pascalTriangle);
+        pascalTriangleBuilder.printArray(pascalTriangle);
     }
 }
 
 class PascalTriangleBuilder {
     public int[][] solve(int input) {
-        if(input == 1){
+        if (input == 1) {
             return new int[][]{{1}};
         }
 
@@ -151,23 +151,20 @@ class PascalTriangleBuilder {
         int column = 0;
         int[][] result = new int[input][input];
 
-        while(row < input && column <= row){
-            if(column == 0){
+        while (row < input && column <= row) {
+            if (column == 0) {
                 result[row][column] = 1;
-                if(row == 0){
+                if (row == 0) {
                     row++;
-                }
-                else {
+                } else {
                     column++;
                 }
-            }
-            else if(row == column) { //Diagonal of matrix & edge of pascal triangle
+            } else if (row == column) { //Diagonal of matrix & edge of pascal triangle
                 result[row][column] = 1;
                 row++;
                 column = 0;
-            }
-            else {
-                result[row][column] = result[row-1][column] + result[row - 1][column -1];
+            } else {
+                result[row][column] = result[row - 1][column] + result[row - 1][column - 1];
                 column++;
             }
         }
@@ -175,19 +172,11 @@ class PascalTriangleBuilder {
         return result;
     }
 
-    public void printArray(int[][] inputArray){
-        for(int loopIndex = 0; loopIndex < inputArray.length; loopIndex++){
-            for (int innerLoopIndex = 0; innerLoopIndex < inputArray[0].length; innerLoopIndex++){
+
+    public void printArray(int[][] inputArray) {
+        for (int loopIndex = 0; loopIndex < inputArray.length; loopIndex++) {
+            for (int innerLoopIndex = 0; innerLoopIndex < inputArray[0].length; innerLoopIndex++) {
                 System.out.print(inputArray[loopIndex][innerLoopIndex] + " ");
-            }
-            System.out.println();
-        }
-      
-    public void displayPattern(int[][] patternArray) {
-        int maxSize = patternArray.length;
-        for(int row = 0; row < maxSize; row++){
-            for(int column = 0; column < maxSize; column++){
-                System.out.print((patternArray[row][column]) + " ");
             }
             System.out.println();
         }
