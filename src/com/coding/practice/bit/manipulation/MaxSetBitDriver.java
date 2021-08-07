@@ -1,4 +1,4 @@
-package com.coding.practice.manipulation;
+package com.coding.practice.bit.manipulation;
 
 /**
  * @author Velmurugan Moorthy
