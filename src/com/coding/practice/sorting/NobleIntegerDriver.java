@@ -102,7 +102,6 @@ class NobleIntegerTools{
                 return nobleIntegerExists;
             }
             if(input[loopIndex] == smallestElement){
-                //result[loopIndex] = loopIndex;
                 continue;
             }
             int temp = input[loopIndex];
