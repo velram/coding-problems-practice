@@ -1,6 +1,8 @@
 package com.coding.practice.array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Velmurugan Moorthy
@@ -9,15 +11,19 @@ import java.util.Arrays;
 public class AntiDiagonalsDriver {
     public static void main(String[] args) {
 
-        int[][] input = {{1,2,3}, {4,5,6},{7,8,9}};
-
+       // int[][] input = {{1,2,3}, {4,5,6},{7,8,9}};
+        int[][] input = {{1,2,3, 4}, {5,6, 7, 8},{9, 10, 11, 12}, {13, 14, 15, 16}};
         AntiDiagonalTools antiDiagonalTools = new AntiDiagonalTools();
 
         int[][] result = antiDiagonalTools.diagonal(input);
 
-        Arrays.stream(result).forEach(row -> {
-            Arrays.stream(row).forEach(System.out::print);
-        });
+
+        for(int i = 0; i < result.length ; i++){
+            for(int j = 0; j < result[0].length ; j++){
+                System.out.print(result[i][j] + " ");
+            }
+            System.out.println();
+        }
 
     }
 }
@@ -25,53 +31,36 @@ public class AntiDiagonalsDriver {
 class AntiDiagonalTools{
     public int[][] diagonal(int[][] input) {
 
-
         int inputRowSize = input.length;
         int inputColumnSize = input[0].length;
-        int[][] result = new int[ 2 * inputColumnSize][inputRowSize];
 
-        int diagonalSize = 2;
-        int startRow = 0;
-        int startColumn = 1;
-        int rowIndex = startRow;
-        int columnIndex = startColumn;
-
-        result[0][0] = input[0][0];
-        int resultRow = 1;
+        int[][] result = new int[ 2 * inputRowSize - 1][inputColumnSize];
+        int[][] result2 = new int[ 2 * inputRowSize - 1][inputColumnSize];
+        List<List<Integer>> resultList = new ArrayList<>();
         int resultColumn = 0;
+        for(int i = 0; i < inputRowSize ; i++){
+            for(int j = 0; j < inputColumnSize ; j++){
 
-        while(rowIndex < inputRowSize && columnIndex < inputColumnSize){
+                result[i+j][j] = (input[i][j]);
 
-            if(rowIndex < diagonalSize-1 && columnIndex >= 0){
-                result[resultRow][resultColumn] = input[rowIndex][columnIndex];
-                rowIndex++;
-                columnIndex--;
-                resultColumn++;
-                continue;
+                //System.out.print(input[i][j] + " ");
+               // System.out.println(" i + j " + (i + j));
             }
+            System.out.println();
+        }
 
-            else if(diagonalSize - 1 == inputRowSize - 1 && rowIndex == inputRowSize - 1
-                    && columnIndex == 0){
-                result[resultRow][resultColumn] = input[rowIndex][columnIndex];
-                rowIndex = startRow++;
-                columnIndex = startColumn;
-                resultRow++;
-                resultColumn = 0;
-                diagonalSize--;
-                continue;
-            }
+        System.out.println();
 
-            else if(diagonalSize - 1 == rowIndex && rowIndex < inputRowSize && columnIndex < inputColumnSize &&
-                    diagonalSize -1 < inputRowSize){
-                result[resultRow][resultColumn] = input[rowIndex][columnIndex];
-                diagonalSize++;
-                rowIndex = 0;
-                columnIndex = (startRow < 1) ? ++startColumn : startColumn;
-                resultRow++;
-                resultColumn=0;
-                continue;
+        for(int i = 0; i < result.length ; i++){
+            for(int j = 0; j < result[i].length ; j++){
+                result2[i][j] = (result[i][j]);
+
+                //if(antiDiagonalIndex++ == i+j)
+                //System.out.println(" i + j " + (i + j));
             }
         }
-        return result;
+
+
+        return result2;
     }
 }
