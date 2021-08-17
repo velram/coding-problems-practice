@@ -11,8 +11,9 @@ import java.util.List;
 public class AntiDiagonalsDriver {
     public static void main(String[] args) {
 
-       // int[][] input = {{1,2,3}, {4,5,6},{7,8,9}};
-        int[][] input = {{1,2,3, 4}, {5,6, 7, 8},{9, 10, 11, 12}, {13, 14, 15, 16}};
+        //int[][] input = {{1,2}, {3, 4}};
+       int[][] input = {{1,2,3}, {4,5,6},{7,8,9}};
+        //int[][] input = {{1,2,3, 4}, {5,6, 7, 8},{9, 10, 11, 12}, {13, 14, 15, 16}};
         AntiDiagonalTools antiDiagonalTools = new AntiDiagonalTools();
 
         int[][] result = antiDiagonalTools.diagonal(input);
@@ -34,33 +35,39 @@ class AntiDiagonalTools{
         int inputRowSize = input.length;
         int inputColumnSize = input[0].length;
 
-        int[][] result = new int[ 2 * inputRowSize - 1][inputColumnSize];
-        int[][] result2 = new int[ 2 * inputRowSize - 1][inputColumnSize];
-        List<List<Integer>> resultList = new ArrayList<>();
-        int resultColumn = 0;
-        for(int i = 0; i < inputRowSize ; i++){
-            for(int j = 0; j < inputColumnSize ; j++){
+        if(inputRowSize == 1){
+            return  input;
+        }
 
-                result[i+j][j] = (input[i][j]);
+        int[][] result = new int[ 2 * inputRowSize - 1][inputColumnSize];
+        for(int rowIndex = 0; rowIndex < inputRowSize ; rowIndex++){
+            for(int columnIndex = 0; columnIndex < inputColumnSize ; columnIndex++){
+
+                if(rowIndex + columnIndex < inputRowSize){
+                    result[rowIndex+columnIndex][columnIndex] = (input[columnIndex][rowIndex]);
+                }
+                else {
+                    result[rowIndex+columnIndex][inputColumnSize - 1 - columnIndex] = (input[rowIndex][columnIndex]);
+                }
 
                 //System.out.print(input[i][j] + " ");
                // System.out.println(" i + j " + (i + j));
             }
-            System.out.println();
+            //System.out.println();
         }
 
-        System.out.println();
+        //System.out.println();
 
-        for(int i = 0; i < result.length ; i++){
-            for(int j = 0; j < result[i].length ; j++){
-                result2[i][j] = (result[i][j]);
+//        for(int i = 0; i < result.length ; i++){
+//            for(int j = 0; j < result[i].length ; j++){
+//                result2[i][j] = (result[i][j]);
+//
+//                //if(antiDiagonalIndex++ == i+j)
+//                //System.out.println(" i + j " + (i + j));
+//            }
+//        }
 
-                //if(antiDiagonalIndex++ == i+j)
-                //System.out.println(" i + j " + (i + j));
-            }
-        }
 
-
-        return result2;
+        return result;
     }
 }
