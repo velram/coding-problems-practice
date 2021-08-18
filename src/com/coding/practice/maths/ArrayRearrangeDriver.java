@@ -55,8 +55,8 @@ class ArrayRearrangeTools{
         for(int loopIndex = 0; loopIndex < length; loopIndex++){
 
            int oldValueAtCurrentIndex = input.get(loopIndex) / length;
-           int targetIndex = input.get(oldValueAtCurrentIndex) / length;
-            input.set(loopIndex, input.get(loopIndex)+targetIndex);
+           int targetValue = input.get(oldValueAtCurrentIndex) / length;
+            input.set(loopIndex, input.get(loopIndex)+targetValue);
         }
 
         for(int index = 0; index < length; index++){
