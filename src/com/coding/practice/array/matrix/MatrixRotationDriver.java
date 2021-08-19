@@ -1,8 +1,10 @@
 package com.coding.practice.array.matrix;
 
+import java.util.Arrays;
+
 /**
  * @author Velmurugan
- * @date - 02.08.2021
+ * @date - 19.08.2021
  * Problem Description
  *
  * You are given a n x n 2D matrix A representing an image.
@@ -74,16 +76,72 @@ package com.coding.practice.array.matrix;
  *
  * Explanation 2:
  *
- *  2D array remains the ssame as there is only element.
+ *  2D array remains the same as there is only element.
  */
 public class MatrixRotationDriver {
     public static void main(String[] args) {
 
+//        int[][] input = {{1,2,3}, {4,5,6},{7,8,9}};; //Test case #1 Happy flow odd sized array - PASS
+//        int[][] input = {{1,2,3, 4}, {5,6,7,8},{9, 10, 11, 12}, {13, 14, 15, 16}}; //Test case #2 Even sized array - PASS
+        int[][] input = {{1,2}, {5,6}}; //Test case #3 Lower bound test - Smaller input matrix - PASS
+//        int[][] input = null; //Test case #
+//        int[][] input = null; //Test case #
+//        int[][] input = null; //Test case #
+//        int[][] input = null; //Test case #
+
+        MatrixRotator matrixRotator = new MatrixRotator();
+        int[][] result = matrixRotator.rotateMatrix(input);
+
+        System.out.println("Rotated matrix is : ");
+
+        for(int row = 0; row < result.length ; row++){
+            for(int column = 0; column < result[0].length ; column++){
+                System.out.print(result[row][column] + " ");
+            }
+            System.out.println();
+        }
     }
 }
 
-class MatrixRotater {
-    public int[][] rotateMatrix(){
-        return null;
+class MatrixRotator {
+    public int[][] rotateMatrix(int[][] input){
+
+        int rowSize = input.length;
+
+        if(rowSize == 1){
+            return input;
+        }
+
+        //Transpose matrix
+
+        for(int row = 0; row < rowSize; row++){
+            for(int column = 0; column < row; column++){
+                int temp = input[row][column];
+                input[row][column] =  input[column][row];
+                input[column][row] = temp;
+            }
+        }
+
+        //Reverse the Transpose matrix using 2 pointer approach
+
+        int startColumn = 0;
+        int endColumn = rowSize - 1;
+        int row = 0;
+        while(startColumn < endColumn){
+            int temp = input[row][startColumn];
+            input[row][startColumn] = input[row][endColumn];
+            input[row][endColumn] = temp;
+
+            if(row < rowSize - 1){
+                row++;
+            }
+            else if(row == rowSize - 1){
+                startColumn++;
+                endColumn--;
+                row = 0;
+            }
+        }
+
+        return input;
     }
 }
