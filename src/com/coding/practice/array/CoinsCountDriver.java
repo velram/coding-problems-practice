@@ -48,7 +48,6 @@ class CoinsCountTools {
        // System.out.println("worshipppers count : " + worshipperData.length);
         int worshippersCount = worshipperData.length;
         int[] finalCoinCount = new int[beggarCount];
-        int[][] beggarCoinsCount = new int[worshippersCount][beggarCount];
 
         if(worshippersCount <= 0){
             return  finalCoinCount;
@@ -64,46 +63,15 @@ class CoinsCountTools {
             int end = worshipperData[loopIndex][1];
             int donationCoinCount = worshipperData[loopIndex][2];
 
-            if(loopIndex == 0){
-                beggarCoinsCount[loopIndex][start] += donationCoinCount;
-
-                if(end != beggarCount){
-                    beggarCoinsCount[loopIndex][end] -= donationCoinCount;
+                finalCoinCount[start] += donationCoinCount;
+                if(end < beggarCount){
+                    finalCoinCount[end] -= donationCoinCount;
                 }
-                continue;
-            }
-
-            beggarCoinsCount[loopIndex][start] += (donationCoinCount);
-            if(end != beggarCount){
-                beggarCoinsCount[loopIndex][end] += (donationCoinCount * -1);
-            }
-
         }
 
-
-        //printTwoDArray(beggarCoinsCount);
-        //System.out.println();
-
-        for(int rowIndex = 0; rowIndex < beggarCoinsCount.length ; rowIndex++){
-            for(int columnIndex = 0; columnIndex < beggarCoinsCount[0].length ; columnIndex++){
-                //System.out.print(beggarCoinsCount[rowIndex][columnIndex] + " ");
-                if(rowIndex > 0){
-                    beggarCoinsCount[rowIndex][columnIndex] += beggarCoinsCount[rowIndex - 1][columnIndex];
-                }
-            }
-            // System.out.println();
-        }
-
-        //printTwoDArray(beggarCoinsCount);
-        //System.out.println();
-
-        //Print beggar coins :
         for(int loopIndex = 0; loopIndex < beggarCount; loopIndex++){
-            if(loopIndex == 0){
-                finalCoinCount[loopIndex] = beggarCoinsCount[worshippersCount - 1][loopIndex];
-            }
             if(loopIndex > 0 && loopIndex < beggarCount){
-                finalCoinCount[loopIndex] =   beggarCoinsCount[worshippersCount - 1][loopIndex] +=  beggarCoinsCount[worshippersCount - 1][loopIndex - 1];
+                finalCoinCount[loopIndex] += finalCoinCount[loopIndex - 1];
             }
         }
 
