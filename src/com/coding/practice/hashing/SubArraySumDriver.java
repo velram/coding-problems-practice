@@ -75,7 +75,7 @@ import java.util.stream.Collectors;
  *
  * Explanation 2:
  *
- *  No subarray sums up to required number.
+ *  No sub-array sums up to required number.
  *
  *
  *
@@ -86,45 +86,63 @@ import java.util.stream.Collectors;
 public class SubArraySumDriver {
     public static void main(String[] args) {
 
-        int[] input = {1, 2, 3, 4, 5};
-        int requiredSum = 5;
+//        int[] input = {1, 2, 3, 4, 5};
+//        int requiredSum = 5;
 //        int[] input = {5, 10, 20, 100, 105};
 //        int requiredSum = 110;
+//        int[] input = {1, 2, 3, 4, 5, 6, 7, 8};
+//        int requiredSum = 12;
+//        int[] input = {5, 10, 20, 100, 105};
+//        int requiredSum = 120;
+        int[] input = {10,20,30,40,50,62,74,83,99,129,318};
+        int requiredSum = 318;
         SubArraySumFinder subArraySumFinder = new SubArraySumFinder();
-        int[] sumExists = subArraySumFinder.findSubArraySumK(input, requiredSum);
-        System.out.println("Sum exists : " + sumExists[1]);
+        int sumExists = subArraySumFinder.findSubArraySumK(input, requiredSum);
+        System.out.println("Sum exists : " + sumExists);
     }
 }
 
 class SubArraySumFinder {
-    public int[] findSubArraySumK(int[] input, int requiredSum){
+    public int findSubArraySumK(int[] input, int requiredSum){
 
         int inputSize = input.length;
         int[] prefixSum = findPrefixSum(input);
+        int start = -1;
+        int end = -1;
 
+        System.out.println("Prefix sum start ");
         Arrays.stream(prefixSum).forEach(element -> System.out.println(" " + element));
+        System.out.println("==================");
 
-        Map<Integer, int[]> prefixSumDifferenceSet = new HashMap();
-
+        //Map<Integer, int[]> prefixSumDifferenceSet = new HashMap();
+        Set<Integer> prefixSumDifferenceSet = new HashSet<>();
         if(prefixSum[0] == requiredSum){
-            return null;
+            return 1;
         }
 
         for(int loopIndex = 0; loopIndex < inputSize; loopIndex++){
             int prefixSumDifference = prefixSum[loopIndex] - requiredSum;
             //System.out.println("prefixSumDifference : " + prefixSumDifference);
-            if(prefixSum[loopIndex] == requiredSum){
-                return null;
-            }
-            if(null != prefixSumDifferenceSet.get(prefixSumDifference)){
-                return prefixSumDifferenceSet.get(prefixSumDifference);
+            if(prefixSumDifferenceSet.contains(prefixSumDifference)){
+                System.out.println("Present in set ");
+                System.out.println("prefixSumDifference : " + prefixSumDifference);
+                System.out.println("prefixSum[loopIndex] : " + prefixSum[loopIndex]);
+                System.out.println("input[loopIndex] : " + input[loopIndex]);
+                System.out.println("(loopIndex + 1) : " + (loopIndex + 1));
+                return 1;
             }
             else {
-                prefixSumDifferenceSet.put(prefixSum[loopIndex], new int[]{input[loopIndex],input[loopIndex]});
+                System.out.println("Absent in set ");
+                prefixSumDifferenceSet.add(prefixSum[loopIndex]);
+                System.out.println("prefixSumDifference : " + prefixSumDifference);
+                System.out.println("prefixSum[loopIndex] : " + prefixSum[loopIndex]);
+                System.out.println("input[loopIndex] : " + input[loopIndex]);
+                System.out.println("(loopIndex + 1) : " + (loopIndex + 1));
+                System.out.println("================== \n");
             }
         }
 
-        return null;
+        return -1;
     }
 
     private int[] findPrefixSum(int[] input) {
