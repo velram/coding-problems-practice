@@ -193,7 +193,6 @@ class SubArraySumFinder {
             else if (subArraySum > requiredSum){
                 subArraySum -= input[start];
                 start++;
-                //end--;
             }
             else if (subArraySum == requiredSum){
                 startEndFlags[0] = start;
