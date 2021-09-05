@@ -63,6 +63,11 @@ import java.util.Arrays;
 public class GravityFlipDriver {
     public static void main(String[] args) {
 
+        int[] input = {3, 2, 1, 2};
+      GravityFlipTools gravityFlipTools = new GravityFlipTools();
+      int[] result = gravityFlipTools.solve(input);
+
+        Arrays.stream(result).forEach(element -> System.out.println(element));
     }
 }
 
