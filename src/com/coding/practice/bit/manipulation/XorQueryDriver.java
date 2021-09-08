@@ -9,7 +9,7 @@ import java.util.Arrays;
  * Problem name : Xor queries
  *
  * Problem Description :
- * 
+ *
  * You are given an array A (containing only 0 and 1) as element of N length.
  *
  * Given L and R, you need to determine value of XOR of all elements from L to R (both inclusive) and number of unset bits (0's) in the given range of the array.
