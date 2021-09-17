@@ -43,17 +43,17 @@ import java.util.Stack;
 public class DirectoryPathSimplifyingDriver {
     public static void main(String[] args) {
 
-//        String absolutePath = "/directory1/directory2/directory3";//Test case #1 - Happy flow
-//        String absolutePath = "/directory1/directory2/./directory3";//Test case #2 with single dot
-        String absolutePath = "/directory1/directory2/../directory3/../../../..";//Test case #3 double dots
-        //String absolutePath = "";//Test case #
-        //String absolutePath = "";//Test case #
+//        String absolutePath = "/directory1/directory2/directory3/";//Test case #1 - Happy flow - PASS
+//        String absolutePath = "/directory1/directory2/./directory3/";//Test case #2 with single dot - PASS
+//        String absolutePath = "/directory1/directory2/../directory3/../../../../";//Test case #3 double dots - PASS
+//        String absolutePath = "/dir1/";//Test case #4 single directory - PASS
+        String absolutePath = "/dir1/       /dir3/";//Test case #5 blank spaces as directory name - PASS
         //String absolutePath = "";//Test case #
         //String absolutePath = "";//Test case #
 
         DirectoryPathSimplifyTools directoryPathSimplifyTools = new DirectoryPathSimplifyTools();
-        directoryPathSimplifyTools.simplifyFilePath(absolutePath);
-        System.out.println(absolutePath);
+        String simplePath = directoryPathSimplifyTools.simplifyFilePath(absolutePath);
+        System.out.println("simplePath is : " + simplePath);
     }
 }
 
@@ -72,8 +72,55 @@ class DirectoryPathSimplifyTools{
         directoryNames.forEach(directoryName -> System.out.println(directoryName));
         Stack<String> directoryPathStack = new Stack<String>();
 
+        populateDirectoryNameStack(directoryNames, directoryPathStack);
 
-        return null;
+        StringBuilder simplePathBuilder = new StringBuilder("/");
+        prepareSimplifiedPath(directoryPathStack, simplePathBuilder);
+
+        return simplePathBuilder.toString();
+    }
+
+    private void prepareSimplifiedPath(Stack<String> directoryPathStack, StringBuilder simplePathBuilder) {
+        for(int loopIndex = 0; loopIndex < directoryPathStack.size() - 1; loopIndex++){
+            if(directoryPathStack.get(loopIndex).equals(".")){
+                directoryPathStack.pop();
+            }
+            else if(directoryPathStack.get(loopIndex).equals("..")){
+                directoryPathStack.pop();
+                directoryPathStack.pop();
+            }
+            else if(directoryPathStack.get(loopIndex).trim().isEmpty()){
+                //simplePathBu
+                //simplePathBuilder.replace()
+                return;
+            }
+            else {
+                simplePathBuilder.append(directoryPathStack.get(loopIndex)).append("/");
+            }
+        }
+        if(!directoryPathStack.isEmpty() &&
+                !"..".equals(directoryPathStack.get(directoryPathStack.size()-1)) &&
+                !".".equals(directoryPathStack.get(directoryPathStack.size()-1))
+        ){
+            simplePathBuilder.append(directoryPathStack.get(directoryPathStack.size()-1));
+        }
+    }
+
+    private void populateDirectoryNameStack(List<String> directoryNames, Stack<String> directoryPathStack) {
+        for(int loopIndex = 0; loopIndex < directoryNames.size(); loopIndex++){
+            if(!directoryPathStack.isEmpty() && directoryNames.get(loopIndex).equals(".")){
+                //directoryPathStack.pop();
+            }
+            else if(!directoryPathStack.isEmpty() && directoryNames.get(loopIndex).equals("..")){
+                directoryPathStack.pop();
+                if(!directoryPathStack.isEmpty()){
+                    directoryPathStack.pop();
+                }
+            }
+            else {
+             directoryPathStack.push(directoryNames.get(loopIndex));
+            }
+        }
     }
 
     //Use 2 pointers
@@ -87,7 +134,8 @@ class DirectoryPathSimplifyTools{
         StringBuilder directoryNameBuilder = new StringBuilder();
 
         while(start < absolutePathLength && end < absolutePathLength){
-         if(start == 0 && end == 0){
+         //if(start == 0 && end == 0 || absolutePath.charAt(end) == ' '){
+            if(start == 0 && end == 0){
              //directoryNameBuilder.append(absolutePath.charAt(start));
              end++;
              continue;
@@ -96,15 +144,18 @@ class DirectoryPathSimplifyTools{
               directoryNameBuilder.append(absolutePath.charAt(end));
               end++;
           }
-          else if(absolutePath.charAt(end) == '/'){
-              directoryNames.add(directoryNameBuilder.toString());
+          else if(absolutePath.charAt(end) == '/' && end < absolutePathLength - 1){
+              if(!directoryNameBuilder.toString().isEmpty()){
+                  directoryNames.add(directoryNameBuilder.toString());
+              }
               start = (end + 1 < absolutePathLength) ? end + 1 : absolutePathLength - 1;
               end = start;
               directoryNameBuilder = new StringBuilder();
               continue;
           }
-          else if (absolutePath.charAt(end) == ' '){
-              continue;
+
+          else if(end == absolutePathLength - 1){
+              break;
           }
         }
 
@@ -115,19 +166,5 @@ class DirectoryPathSimplifyTools{
         }
 
         return directoryNames;
-    }
-}
-
-class DirectoryPathStack{
-    public List<String> directoryPaths;
-
-    public void push(String directoryPath){
-        directoryPaths.add(directoryPath);
-    }
-
-    public String pop(){
-        int stackTop = directoryPaths.size() - 1;
-        System.out.println("Element to be popped is : " + directoryPaths.get(stackTop));
-        return directoryPaths.remove(stackTop);
     }
 }
