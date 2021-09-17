@@ -47,8 +47,8 @@ public class DirectoryPathSimplifyingDriver {
 //        String absolutePath = "/directory1/directory2/./directory3/";//Test case #2 with single dot - PASS
 //        String absolutePath = "/directory1/directory2/../directory3/../../../../";//Test case #3 double dots - PASS
 //        String absolutePath = "/dir1/";//Test case #4 single directory - PASS
-        String absolutePath = "/dir1/       /dir3/";//Test case #5 blank spaces as directory name - PASS
-        //String absolutePath = "";//Test case #
+//        String absolutePath = "/dir1/       /dir3/";//Test case #5 blank spaces as directory name - PASS
+        String absolutePath =  "/a/./b/../../c/";//Test case #6 failing test case
         //String absolutePath = "";//Test case #
 
         DirectoryPathSimplifyTools directoryPathSimplifyTools = new DirectoryPathSimplifyTools();
@@ -82,16 +82,7 @@ class DirectoryPathSimplifyTools{
 
     private void prepareSimplifiedPath(Stack<String> directoryPathStack, StringBuilder simplePathBuilder) {
         for(int loopIndex = 0; loopIndex < directoryPathStack.size() - 1; loopIndex++){
-            if(directoryPathStack.get(loopIndex).equals(".")){
-                directoryPathStack.pop();
-            }
-            else if(directoryPathStack.get(loopIndex).equals("..")){
-                directoryPathStack.pop();
-                directoryPathStack.pop();
-            }
-            else if(directoryPathStack.get(loopIndex).trim().isEmpty()){
-                //simplePathBu
-                //simplePathBuilder.replace()
+           if(directoryPathStack.get(loopIndex).trim().isEmpty()){
                 return;
             }
             else {
@@ -113,9 +104,6 @@ class DirectoryPathSimplifyTools{
             }
             else if(!directoryPathStack.isEmpty() && directoryNames.get(loopIndex).equals("..")){
                 directoryPathStack.pop();
-                if(!directoryPathStack.isEmpty()){
-                    directoryPathStack.pop();
-                }
             }
             else {
              directoryPathStack.push(directoryNames.get(loopIndex));
