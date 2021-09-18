@@ -49,7 +49,11 @@ public class DirectoryPathSimplifyingDriver {
 //        String absolutePath = "/dir1/";//Test case #4 single directory - PASS
 //        String absolutePath = "/dir1/       /dir3/";//Test case #5 blank spaces as directory name - PASS
         String absolutePath =  "/a/./b/../../c/";//Test case #6 failing test case
+        //Test case #7 edge case - PASS
+//        String absolutePath = "///./.././ykt/xhp/nka/eyo/blr/emm/xxm/fuv/bjg/./qbd/./../pir/dhu/./../../wrm/grm/ach/jsy/dic/ggz/smq/mhl/./../yte/hou/ucd/vnn/fpf/cnb/ouf/hqq/upz/akr/./pzo/../llb/./tud/olc/zns/fiv/./eeu/fex/rhi/pnm/../../kke/./eng/bow/uvz/jmz/hwb/./././ids/dwj/aqu/erf/./koz/..";
+        ///./.././ykt/xhp/nka/eyo/blr/emm/xxm/fuv/bjg/./qbd/./../pir/dhu/./../../wrm/grm/ach/jsy/dic/ggz/smq/mhl/./../yte/hou/ucd/vnn/fpf/cnb/ouf/hqq/upz/akr/./pzo/../llb/./tud/olc/zns/fiv/./eeu/fex/rhi/pnm/../../kke/./eng/bow/uvz/jmz/hwb/./././ids/dwj/aqu/erf/./koz/..
         //String absolutePath = "";//Test case #
+
 
         DirectoryPathSimplifyTools directoryPathSimplifyTools = new DirectoryPathSimplifyTools();
         String simplePath = directoryPathSimplifyTools.simplifyFilePath(absolutePath);
@@ -99,8 +103,15 @@ class DirectoryPathSimplifyTools{
 
     private void populateDirectoryNameStack(List<String> directoryNames, Stack<String> directoryPathStack) {
         for(int loopIndex = 0; loopIndex < directoryNames.size(); loopIndex++){
-            if(!directoryPathStack.isEmpty() && directoryNames.get(loopIndex).equals(".")){
-                //directoryPathStack.pop();
+
+            //Handling root directory cases (for "." & ".." )
+            if(directoryPathStack.isEmpty() && (("..").equals(directoryNames.get(loopIndex)) ||
+                    (".").equals(directoryNames.get(loopIndex))) ){
+                continue;
+            }
+
+            if(directoryNames.get(loopIndex).equals(".")){
+               continue;
             }
             else if(!directoryPathStack.isEmpty() && directoryNames.get(loopIndex).equals("..")){
                 directoryPathStack.pop();
