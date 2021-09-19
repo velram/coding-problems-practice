@@ -1,4 +1,4 @@
-package com.coding.practice;
+package com.coding.practice.array;
 
 /**
  * @author : Velmurugan Moorthy
