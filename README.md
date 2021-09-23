@@ -1,4 +1,4 @@
-# scaler-practice
+# Coding-problems-practice
 
 Daily Coding problems for practice (atleast one per day). 
 
