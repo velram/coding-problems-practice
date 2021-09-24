@@ -93,7 +93,7 @@ public class GreatestModuloDriver {
 class GreatestModuloFinder{
     public int solve(int firstInteger, int secondInteger) {
 
-        int greatestModulo = Integer.MIN_VALUE;
+        //int greatestModulo = Integer.MIN_VALUE;
         int difference = (firstInteger > secondInteger) ? (firstInteger - secondInteger) : secondInteger - firstInteger;
 
         return difference;
