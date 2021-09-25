@@ -1,4 +1,4 @@
-package com.coding.practice.maths;
+package com.coding.practice.maths.gcd;
 
 /**
  * @author : Velmurugan Moorthy
@@ -88,7 +88,6 @@ class GCDBasicTools{
       if(secondInteger == 0){
           return firstInteger;
       }
-
       else return findGCD(secondInteger, firstInteger % secondInteger);
   }
 }

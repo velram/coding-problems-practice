@@ -1,4 +1,4 @@
-package com.coding.practice.maths;
+package com.coding.practice.maths.gcd;
 
 /**
  * @author : Velmurugan Moorthy
