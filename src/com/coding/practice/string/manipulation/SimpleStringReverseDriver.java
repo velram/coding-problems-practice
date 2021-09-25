@@ -32,19 +32,11 @@ package com.coding.practice.string.manipulation;
  *
  * Input 1:
  *
- *  A = "scaler"
- *
- * Input 2:
- *
  *  A = "academy"
  *
  *
  *
  * Example Output
- *
- * Output 1:
- *
- *  "relacs"
  *
  * Output 2:
  *

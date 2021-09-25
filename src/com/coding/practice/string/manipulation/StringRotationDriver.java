@@ -35,11 +35,6 @@ package com.coding.practice.string.manipulation;
  *
  * Input 1:
  *
- *  A = "scaler"
- *  B = 2
- *
- * Input 2:
- *
  *  A = "academy"
  *  B = 7
  *
@@ -48,11 +43,6 @@ package com.coding.practice.string.manipulation;
  * Example Output
  *
  * Output 1:
- *
- *  "erscal"
- *
- * Output 2:
- *
  *  "academy"
  *
  *
