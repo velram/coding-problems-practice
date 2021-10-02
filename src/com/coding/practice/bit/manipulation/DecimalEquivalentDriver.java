@@ -86,41 +86,24 @@ public class DecimalEquivalentDriver {
     }
 }
 
+/**
+ * Approach use right shift 'i' times
+ */
 class DecimalEquivalentSetBitCounter {
     public int countDecimalEquivalentSetBits(int input){
 
-        if(input == 1 || input == 2){
-            return 1;
-        }
-
-        input += 1;
-
         int setBitCount = 0;
-        int loopIndex = 1;
 
-        while(loopIndex <= input){
-
-            if(loopIndex == 1){
-                setBitCount += (input / 2);
-            }
-            else {
-
-                int twoPowerI = (int) Math.pow(2, loopIndex);
-                int twoPowerIMinusOne = (int) Math.pow(2, loopIndex  - 1);
-                int remainingBitCount =  (input % twoPowerI)  -  twoPowerIMinusOne;
-                int groupBitCount = (input / twoPowerI) * (twoPowerIMinusOne);
-
-                if(remainingBitCount < 0){
-                    setBitCount += groupBitCount;
-                }
-                else {
-                    setBitCount += (groupBitCount + remainingBitCount);
+        for(int bitIndex = 0; bitIndex < 32 ; bitIndex++){
+            for(int currentNumber = 1; currentNumber <= input; currentNumber++){
+                if( ((currentNumber >> bitIndex) & 1) == 1) {
+                    setBitCount++;
                 }
             }
-            loopIndex++;
         }
 
-        return setBitCount % (1000000009);
-    }
+        //System.out.println("setBitCount : " + setBitCount);
 
+        return setBitCount;
+    }
 }
