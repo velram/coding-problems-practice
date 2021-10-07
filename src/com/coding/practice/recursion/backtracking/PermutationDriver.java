@@ -1,8 +1,10 @@
 package com.coding.practice.recursion.backtracking;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author : Velmurugan Moorthy
@@ -26,36 +28,42 @@ public class PermutationDriver {
 
 class PermutationFinder{
 
-    public void findPermutations(int[] inputArray) {
-        int length = inputArray.length;
-        int[][] result = new int[length][length];
-        List<List<Integer>> resultList = new ArrayList<>();
-        List<Integer> tempList = new ArrayList<>(Collections.nCopies(length, -1));
+    public int[][] findPermutations(int[] inputArray) {
+        int inputLength = inputArray.length;
+        int[][] permutations = new int[ 2 * inputLength][inputLength];
+        List<List<Integer>> permutationList = new ArrayList<>();
+        List<Integer> permutationRow = new ArrayList<>(Collections.nCopies(inputLength, -1));
 
-        permute(inputArray, length, 0, resultList, tempList);
+        permute(inputArray, inputLength, 0, permutationList, permutationRow);
 
-        resultList.forEach(list -> {
-            list.forEach(innerListElement -> {
-                System.out.print(innerListElement + " ");
-            });
-            System.out.println();
-        });
+        for(int loopIndex = 0; loopIndex < 2 * inputLength; loopIndex++){
+            permutations[loopIndex] = permutationList.get(loopIndex).stream().mapToInt(listElement->listElement).toArray();
+        }
+
+//        Arrays.stream(permutations).forEach(innerArray -> {
+//            Arrays.stream(innerArray).forEach(innerArrayElement -> {
+//                System.out.print(innerArrayElement + " ");
+//            });
+//            System.out.println();
+//        });
+
+        return permutations;
     }
 
     public void permute(int[] inputArray, int length, int index, List<List<Integer>> resultList,
                         List<Integer> tempList){
 
         if(index == length){
-            resultList.add(tempList);
+            resultList.add(tempList.stream().collect(Collectors.toList()));
             return;
         }
 
         for(int loopIndex = 0; loopIndex < length; loopIndex++){
 
-            if(-1 == tempList.get(index)){
-                tempList.add(inputArray[index]);
+            if(-1 == tempList.get(loopIndex)){
+                tempList.set(loopIndex, inputArray[index]);
                 permute(inputArray, length, index + 1, resultList, tempList);
-                tempList.add(loopIndex, -1);
+                tempList.set(loopIndex, -1);
             }
         }
 
