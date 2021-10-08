@@ -14,14 +14,25 @@ import java.util.stream.Collectors;
 public class PermutationDriver {
     public static void main(String[] args) {
 
-        int[] inputArray= {1, 2, 3};//Test case #1 - Happy flow
+//        int[] inputArray= {1, 2, 3};//Test case #1 - Happy flow - PASS
+//        int[] inputArray= {1};//Test case #2 - trivial case - PASS
+//        int[] inputArray= {1,2};//Test case #3 - Lesser inputs - PASS
+        int[] inputArray= {1,2,3,4};//Test case #4 - Four integers
+//        int[] inputArray= {};//Test case #
 //        int[] inputArray= {};//Test case #
 //        int[] inputArray= {};//Test case #
 //        int[] inputArray= {};//Test case #
 //        int[] inputArray= {};//Test case #
 
         PermutationFinder permutationFinder = new PermutationFinder();
-        permutationFinder.findPermutations(inputArray);
+        int[][] permutations = permutationFinder.findPermutations(inputArray);
+
+        for(int rowIndex = 0; rowIndex < permutations.length; rowIndex++){
+            for(int columnIndex = 0; columnIndex < inputArray.length; columnIndex++){
+                System.out.print(permutations[rowIndex][columnIndex] + " ");
+            }
+            System.out.println();
+        }
 
     }
 }
@@ -29,23 +40,25 @@ public class PermutationDriver {
 class PermutationFinder{
 
     public int[][] findPermutations(int[] inputArray) {
+
         int inputLength = inputArray.length;
-        int[][] permutations = new int[ 2 * inputLength][inputLength];
+
+        if(inputLength == 1){
+            int[][] result = new int[1][1];
+            result[0] = inputArray;
+            return result;
+        }
+
+
         List<List<Integer>> permutationList = new ArrayList<>();
         List<Integer> permutationRow = new ArrayList<>(Collections.nCopies(inputLength, -1));
 
         permute(inputArray, inputLength, 0, permutationList, permutationRow);
+        int[][] permutations = new int[ permutationList.size()][inputLength];
 
-        for(int loopIndex = 0; loopIndex < 2 * inputLength; loopIndex++){
+        for(int loopIndex = 0; loopIndex < permutationList.size(); loopIndex++){
             permutations[loopIndex] = permutationList.get(loopIndex).stream().mapToInt(listElement->listElement).toArray();
         }
-
-//        Arrays.stream(permutations).forEach(innerArray -> {
-//            Arrays.stream(innerArray).forEach(innerArrayElement -> {
-//                System.out.print(innerArrayElement + " ");
-//            });
-//            System.out.println();
-//        });
 
         return permutations;
     }
