@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 public class PermutationDriver {
     public static void main(String[] args) {
 
-//        int[] inputArray= {1, 2, 3};//Test case #1 - Happy flow - PASS
+        int[] inputArray= {1, 2, 3};//Test case #1 - Happy flow - PASS
 //        int[] inputArray= {1};//Test case #2 - trivial case - PASS
 //        int[] inputArray= {1,2};//Test case #3 - Lesser inputs - PASS
 //        int[] inputArray= {1,2,3,4};//Test case #4 - Four integers
 //        int[] inputArray= {1,2,3,4,5};//Test case #5 - Five Integers - PASS
-        int[] inputArray= {1,2,3,4,5,6,7,8,9};//Test case #
+//        int[] inputArray= {1,2,3,4,5,6,7,8,9};//Test case #
 //        int[] inputArray= {};//Test case #
 //        int[] inputArray= {};//Test case #
 //        int[] inputArray= {};//Test case #
