@@ -101,15 +101,15 @@ class SumDifferenceFinder {
 
         Arrays.sort(input);
 
-        int min = 0;
-        int max = 0;
+        long min = 0;
+        long max = 0;
         long[] twoPowers = findTwoPower(size);
         long answer = 0;
 
         for(int loopIndex = 0; loopIndex < size; loopIndex++){
-            min = (int) twoPowers[size - 1 - loopIndex] % MODULO_MAX;
-            max = (int)  twoPowers[loopIndex] % MODULO_MAX;
-            answer += (input[loopIndex] * (max - min));
+            min = twoPowers[size - 1 - loopIndex];
+            max = twoPowers[loopIndex];
+            answer =  (answer + (max - min) * input[loopIndex]) % MODULO_MAX;
         }
 
         return (int) (answer + MODULO_MAX % MODULO_MAX);
