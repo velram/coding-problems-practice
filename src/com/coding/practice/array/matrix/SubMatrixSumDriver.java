@@ -141,7 +141,7 @@ public class SubMatrixSumDriver {  public static void main(String[] args) {
 
 class SubMatrixSumFinder {
 
-    private static final int MODULO_MAX = 1000000007;
+    private static final long MODULO_MAX = 1000000007;
 
     public int[] answerRangeSumQueries(int[][] inputMatrix, int[] topLeftRows, int[] topLeftColumns,
                                        int[] bottomRightRows, int[] bottomRightColumns) {
@@ -160,28 +160,28 @@ class SubMatrixSumFinder {
 
         for(int loopIndex = 0; loopIndex < topLeftRows.length; loopIndex++){
 
-            rangeSums[loopIndex] = (int) prefixSum2D[bottomRightRows[loopIndex] - 1][bottomRightColumns[loopIndex] - 1]
-                                    % MODULO_MAX;
+            rangeSums[loopIndex] = (int) (prefixSum2D[bottomRightRows[loopIndex] - 1][bottomRightColumns[loopIndex] - 1]
+                                    % MODULO_MAX);
 
             if(topLeftColumns[loopIndex] - 1 > 0){
-                rangeSums[loopIndex] = (int) (
+                rangeSums[loopIndex] = (int) ((
                                 (
                                  rangeSums[loopIndex] - prefixSum2D[bottomRightRows[loopIndex] - 1][topLeftColumns[loopIndex] - 1 -1]
                                 )
                                  + MODULO_MAX)
-                                 % MODULO_MAX;
+                                 % MODULO_MAX);
             }
             if(topLeftRows[loopIndex] - 1 > 0){
-                rangeSums[loopIndex] = (int) (
+                rangeSums[loopIndex] = (int) ((
                         (rangeSums[loopIndex] - prefixSum2D[topLeftRows[loopIndex] - 1 - 1][bottomRightColumns[loopIndex]-1])
                                 + MODULO_MAX)
-                        % MODULO_MAX;
+                        % MODULO_MAX);
             }
             if(topLeftRows[loopIndex] - 1 > 0 && topLeftColumns[loopIndex] - 1 > 0){
-                rangeSums[loopIndex] = (int) (
+                rangeSums[loopIndex] = (int) ((
                         (rangeSums[loopIndex] + prefixSum2D[topLeftRows[loopIndex] - 1 - 1][topLeftColumns[loopIndex] - 1 - 1])
                          + MODULO_MAX
-                        ) % MODULO_MAX;
+                        ) % MODULO_MAX);
             }
 
             //System.out.println("Range sum["+loopIndex+"] : " + rangeSums[loopIndex]);
