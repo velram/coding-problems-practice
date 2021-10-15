@@ -1,5 +1,7 @@
 package com.coding.practice.array.matrix;
 
+import java.util.Arrays;
+
 /**
  * @author : Velmurugan Moorthy
  * @date : 16/10/2021
@@ -94,18 +96,30 @@ package com.coding.practice.array.matrix;
 public class SubMatrixSumDriver {  public static void main(String[] args) {
 
     //Test case #1 - Happy flow - PASS
-    int[][] inputMatrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    int[] topLeftRow = {1, 2};
-    int[] topLeftColumn = {1, 2};
-    int[] bottomRightRows = {2, 3};
-    int[] bottomRightColumn = {2, 3};
+//    int[][] inputMatrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+//    int[] topLeftRow = {1, 2};
+//    int[] topLeftColumn = {1, 2};
+//    int[] bottomRightRows = {2, 3};
+//    int[] bottomRightColumn = {2, 3};
 
-    //Test case #
-//        int[][] inputMatrix = {{}};
-//        int[] topLeftRow = {};
-//        int[] topLeftColumn = {};
-//        int[] bottomRightRows = {};
-//        int[] bottomRightColumn = {};
+    //Test case #2 - single element matrix - PASS
+//        int[][] inputMatrix = {{103}};
+//        int[] topLeftRow = {1};
+//        int[] topLeftColumn = {1};
+//        int[] bottomRightRows = {1};
+//        int[] bottomRightColumn = {1};
+
+
+    //Test case #3 - PASS (column only sum)
+        int[][] inputMatrix = {{5, 17, 100, 11}, {0, 0, 2, 8}};
+        int[] topLeftRow = { 1, 1 };
+        int[] topLeftColumn = { 1, 4};
+        int[] bottomRightRows = { 2, 2};
+        int[] bottomRightColumn = {2, 4};
+
+
+
+        /* */
 
     //Test case #
 //        int[][] inputMatrix = {{}};
@@ -115,15 +129,20 @@ public class SubMatrixSumDriver {  public static void main(String[] args) {
 //        int[] bottomRightColumn = {};
 
     SubMatrixSumFinder subMatrixSumFinder = new SubMatrixSumFinder();
-    int[] subMatrixSum = subMatrixSumFinder.answerRangeSumQueries(inputMatrix, topLeftRow, topLeftColumn,
+    int[] subMatrixRangeSum = subMatrixSumFinder.answerRangeSumQueries(inputMatrix, topLeftRow, topLeftColumn,
             bottomRightRows, bottomRightColumn);
 
+    System.out.println("Range sum is : ");
+    Arrays.stream(subMatrixRangeSum).forEach(rangeSum -> System.out.print(rangeSum + " "));
 
 }
 }
 
 
 class SubMatrixSumFinder {
+
+    private static final int MODULO_MAX = 1000000007;
+
     public int[] answerRangeSumQueries(int[][] inputMatrix, int[] topLeftRows, int[] topLeftColumns,
                                        int[] bottomRightRows, int[] bottomRightColumns) {
 
@@ -134,33 +153,44 @@ class SubMatrixSumFinder {
 
         //Find prefixSum2D
         //answer queries from prefixSum
-        int[][] prefixSum2D = calculatePrefixSum2D(inputMatrix, rowCount, columnCount);
+        long[][] prefixSum2D = calculatePrefixSum2D(inputMatrix, rowCount, columnCount);
 
-        System.out.println("PrefixSum2D is given below ");
-        print2DMatrix(rowCount, columnCount, prefixSum2D);
+//        System.out.println("PrefixSum2D is given below ");
+//        print2DMatrix(rowCount, columnCount, prefixSum2D);
 
         for(int loopIndex = 0; loopIndex < topLeftRows.length; loopIndex++){
 
-            int topLeftRowIndexMinusOne = topLeftRows[loopIndex] - 1 - 1 > 0 ? topLeftRows[loopIndex] - 1 - 1 : 0;
-            int topLeftColumnIndexMinusOne = topLeftColumns[loopIndex] - 1 - 1 > 0 ? topLeftColumns[loopIndex] - 1 - 1 : 0;
+            rangeSums[loopIndex] = (int) prefixSum2D[bottomRightRows[loopIndex] - 1][bottomRightColumns[loopIndex] - 1]
+                                    % MODULO_MAX;
 
-            if(topLeftRows[loopIndex] - 1 == 0 && topLeftColumns[loopIndex] - 1 == 0){
-                rangeSums[loopIndex] = prefixSum2D[bottomRightRows[loopIndex] - 1][bottomRightColumns[loopIndex] - 1];
+            if(topLeftColumns[loopIndex] - 1 > 0){
+                rangeSums[loopIndex] = (int) (
+                                (
+                                 rangeSums[loopIndex] - prefixSum2D[bottomRightRows[loopIndex] - 1][topLeftColumns[loopIndex] - 1 -1]
+                                )
+                                 + MODULO_MAX)
+                                 % MODULO_MAX;
             }
-            else {
-                rangeSums[loopIndex] = prefixSum2D[bottomRightRows[loopIndex]-1][bottomRightColumns[loopIndex]-1] -
-                        (prefixSum2D[bottomRightRows[loopIndex]-1][topLeftColumnIndexMinusOne] +
-                                prefixSum2D[topLeftRowIndexMinusOne][bottomRightColumns[loopIndex] - 1] -
-                                prefixSum2D[topLeftRowIndexMinusOne][topLeftColumnIndexMinusOne]);
+            if(topLeftRows[loopIndex] - 1 > 0){
+                rangeSums[loopIndex] = (int) (
+                        (rangeSums[loopIndex] - prefixSum2D[topLeftRows[loopIndex] - 1 - 1][bottomRightColumns[loopIndex]-1])
+                                + MODULO_MAX)
+                        % MODULO_MAX;
+            }
+            if(topLeftRows[loopIndex] - 1 > 0 && topLeftColumns[loopIndex] - 1 > 0){
+                rangeSums[loopIndex] = (int) (
+                        (rangeSums[loopIndex] + prefixSum2D[topLeftRows[loopIndex] - 1 - 1][topLeftColumns[loopIndex] - 1 - 1])
+                         + MODULO_MAX
+                        ) % MODULO_MAX;
             }
 
-            System.out.println("Range sum["+loopIndex+"] : " + rangeSums[loopIndex]);
+            //System.out.println("Range sum["+loopIndex+"] : " + rangeSums[loopIndex]);
         }
 
         return rangeSums;
     }
 
-    private void print2DMatrix(int rowCount, int columnCount, int[][] prefixSum2D) {
+    private void print2DMatrix(int rowCount, int columnCount, long[][] prefixSum2D) {
         for(int rowIndex = 0; rowIndex < rowCount; rowIndex++){
             for(int columnIndex = 0; columnIndex < columnCount; columnIndex++){
                 System.out.print(prefixSum2D[rowIndex][columnIndex] + " ");
@@ -169,27 +199,38 @@ class SubMatrixSumFinder {
         }
     }
 
-    private int[][] calculatePrefixSum2D(int[][] inputMatrix, int rowCount, int columnCount) {
+    private long[][] calculatePrefixSum2D(int[][] inputMatrix, int rowCount, int columnCount) {
 
-        int[][] prefixSum2D = new int[inputMatrix.length][inputMatrix[0].length];
+        long[][] prefixSum2D = new long[inputMatrix.length][inputMatrix[0].length];
 
         prefixSum2D[0][0] = inputMatrix[0][0];
 
-        for(int columnIndex = 1; columnIndex < rowCount; columnIndex++){
-            prefixSum2D[0][columnIndex] += prefixSum2D[0][columnIndex - 1] + inputMatrix[0][columnIndex];
+        for(int columnIndex = 1; columnIndex < columnCount; columnIndex++){
+            prefixSum2D[0][columnIndex] =  ( (prefixSum2D[0][columnIndex] + prefixSum2D[0][columnIndex - 1]
+                                              + inputMatrix[0][columnIndex]) + MODULO_MAX
+                                            ) % MODULO_MAX;
         }
 
         for(int rowIndex = 1; rowIndex < rowCount; rowIndex++){
-            prefixSum2D[rowIndex][0] += prefixSum2D[rowIndex - 1][0] + inputMatrix[rowIndex][0];
+            prefixSum2D[rowIndex][0] = (
+                                        (
+                                         prefixSum2D[rowIndex][0] + prefixSum2D[rowIndex - 1][0]
+                                         + inputMatrix[rowIndex][0]
+                                        ) + MODULO_MAX
+                                        ) % MODULO_MAX;
         }
 
 
         for(int rowIndex = 1; rowIndex < rowCount; rowIndex++){
             for(int columnIndex = 1; columnIndex < columnCount; columnIndex++){
-                prefixSum2D[rowIndex][columnIndex] = prefixSum2D[rowIndex][columnIndex - 1] +
-                        prefixSum2D[rowIndex - 1][columnIndex] -
-                        prefixSum2D[rowIndex - 1][columnIndex - 1] +
-                        inputMatrix[rowIndex][columnIndex];
+                prefixSum2D[rowIndex][columnIndex] = (
+                                                      (
+                                                        prefixSum2D[rowIndex][columnIndex - 1] +
+                                                        prefixSum2D[rowIndex - 1][columnIndex] -
+                                                        prefixSum2D[rowIndex - 1][columnIndex - 1] +
+                                                        inputMatrix[rowIndex][columnIndex]
+                                                      ) + MODULO_MAX
+                                                     ) % MODULO_MAX;
             }
         }
 
