@@ -93,9 +93,9 @@ public class SumOfDifferenceDriver {
 class SumDifferenceFinder {
     private static final int MODULO_MAX = 1000000007;
     public int findDifferenceSum(int[] input) {
-        int size = input.length;
+        int arraySize = input.length;
 
-        if(size == 1){
+        if(arraySize == 1){
             return 0;
         }
 
@@ -103,19 +103,20 @@ class SumDifferenceFinder {
 
         long min = 0;
         long max = 0;
-        long[] twoPowers = findTwoPower(size);
-        long answer = 0;
+        long[] twoPowers = findTwoPowers(arraySize);
+        int answer = 0;
 
-        for(int loopIndex = 0; loopIndex < size; loopIndex++){
-            min = twoPowers[size - 1 - loopIndex];
+        for(int loopIndex = 0; loopIndex < input.length; loopIndex++){
+
+            min = twoPowers[arraySize - 1 - loopIndex];
             max = twoPowers[loopIndex];
-            answer =  (answer + (max - min) * input[loopIndex]) % MODULO_MAX;
-        }
 
-        return (int) (answer + MODULO_MAX % MODULO_MAX);
+            answer = handleOverFlows(answer + (max - min) * input[loopIndex]);
+        }
+        return answer;
     }
 
-    private long[] findTwoPower(int arraySize){
+    private long[] findTwoPowers(int arraySize){
 
         long[] twoPowers = new long[arraySize];
         twoPowers[0] = 1;
@@ -125,5 +126,9 @@ class SumDifferenceFinder {
         }
 
         return twoPowers;
+    }
+
+    private int handleOverFlows(long input){
+        return (int) ((input + MODULO_MAX) % MODULO_MAX);
     }
 }
