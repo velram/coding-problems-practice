@@ -204,7 +204,7 @@ class SubMatrixSumFinder {
         return prefixSum2D;
     }
 
-    public int handleOverflows(long input){
+    private int handleOverflows(long input){
         return (int) ((input + MODULO_MAX) % MODULO_MAX);
     }
 
