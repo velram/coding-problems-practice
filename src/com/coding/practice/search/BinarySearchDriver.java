@@ -1,4 +1,4 @@
-package com.coding.practice.searching;
+package com.coding.practice.search;
 
 /**
  * @author : Velmurugan Moorthy
