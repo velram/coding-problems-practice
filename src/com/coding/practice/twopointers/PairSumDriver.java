@@ -85,13 +85,13 @@ public class PairSumDriver {
 //        int[] inputArray  = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 //        int requiredSum = 7;
 //
-//        //Test case #
+//        //Test case #3 - duplicate element in the array
         int[] inputArray  = {2, 2, 3, 4, 4, 5, 6, 7, 10};
         int requiredSum = 8;
 //
-//        //Test case #
-//        int[] inputArray  = {};
-//        int requiredSum = 0;
+//        //Test case #4 only duplicate elements in the array - PASS
+//        int[] inputArray  = {4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666, 4629666};
+//        int requiredSum = 9259332;
 //
 //        //Test case #
 //        int[] inputArray  = {};
@@ -174,8 +174,7 @@ class PairSumFinder {
                else if(inputArray[left] == inputArray[right]){
                     long duplicateCount = (right - left + 1);
                     pairCount = pairCount + (( duplicateCount * (duplicateCount - 1 )) /  2);//Formula for Nc2;
-                    left++;
-                    right--;
+                    break;
                 }
                 else {
                     pairCount++;
