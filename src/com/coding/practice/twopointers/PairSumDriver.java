@@ -124,17 +124,10 @@ class PairSumFinder {
 
         int inputSize = inputArray.length;
 
-        //TODO handle single element array
+        int baseCasesPairCount = handleBaseCases(inputArray, requiredSum);
 
-        if(inputSize == 1){
-            return 0;
-        }
-
-        if(inputSize == 2){
-            if(inputArray[0] + inputArray[1] == requiredSum){
-                return 1;
-            }
-            return 0;
+        if(baseCasesPairCount != -1) {
+            return baseCasesPairCount;
         }
 
         long pairCount = 0;
@@ -185,5 +178,21 @@ class PairSumFinder {
         }
 
         return (int) (pairCount % 1000000007);
+    }
+
+    private int handleBaseCases(int[] inputArray, int requiredSum) {
+        int inputSize = inputArray.length;
+
+        if(inputSize == 1){
+            return 0;
+        }
+
+        if(inputSize == 2){
+            if(inputArray[0] + inputArray[1] == requiredSum){
+                return 1;
+            }
+            return 0;
+        }
+        return -1;
     }
 }
