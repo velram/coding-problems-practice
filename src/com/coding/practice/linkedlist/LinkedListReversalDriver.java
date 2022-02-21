@@ -14,7 +14,11 @@ public class LinkedListReversalDriver {
         head.next.next.next.next =  new LinkedListNode(5);
 
         LinkedList linkedList = new LinkedList();
+        System.out.println("LinkedList before reversing : ");
+        linkedList.printLinkedList(head);
+
         LinkedListNode result = linkedList.reverseLinkedList(head);
+        System.out.println("LinkedList after reversing : ");
         linkedList.printLinkedList(result);
     }
 }
