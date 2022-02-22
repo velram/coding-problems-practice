@@ -90,7 +90,7 @@ public class LinkedListPartialReverseDriver {
         System.out.println("LinkedList before reversing : ");
         linkedList.printLinkedList(head);
 
-        LinkedListNode result = linkedListPartialReverseTool.reverseListInGroups(head,4);
+        LinkedListNode result = linkedListPartialReverseTool.reverseListInGroups(head,8);
         System.out.println("LinkedList after reversing : ");
         linkedList.printLinkedList(result);
     }
@@ -124,18 +124,18 @@ class LinkedListPartialReverseTool {
 
         int iterationIndex = 1;
 
-        while(current != null && iterationIndex % reversalSize > 0){
+        while(current != null && iterationIndex <= reversalSize){
            next = current.next;
            current.next = previous;
            previous = current;
            current = next;
            iterationIndex++;
-           if(iterationIndex == reversalSize - 1){
-               iterationIndex = 1;
-           }
         }
-        head = previous;
 
-        return head;
+        if(next != null){
+            head.next = reverseList(next, reversalSize);
+        }
+
+        return previous;
     }
 }
