@@ -75,6 +75,24 @@ package com.coding.practice.linkedlist;
 public class LinkedListPartialReverseDriver {
     public static void main(String[] args) {
 
+        LinkedListPartialReverseTool linkedListPartialReverseTool = new LinkedListPartialReverseTool();
+
+        LinkedListNode head = new LinkedListNode(1);
+        head.next = new LinkedListNode(2);
+        head.next.next =  new LinkedListNode(3);
+        head.next.next.next =  new LinkedListNode(4);
+        head.next.next.next.next =  new LinkedListNode(5);
+        head.next.next.next.next.next =  new LinkedListNode(6);
+        head.next.next.next.next.next.next =  new LinkedListNode(7);
+        head.next.next.next.next.next.next.next =  new LinkedListNode(8);
+
+        LinkedList linkedList = new LinkedList();
+        System.out.println("LinkedList before reversing : ");
+        linkedList.printLinkedList(head);
+
+        LinkedListNode result = linkedListPartialReverseTool.reverseListInGroups(head,4);
+        System.out.println("LinkedList after reversing : ");
+        linkedList.printLinkedList(result);
     }
 }
 
@@ -94,15 +112,30 @@ class LinkedListPartialReverseTool {
             return head;
         }
 
-
-
-        return null;
+        return reverseList(head, reversalSize);
     }
 
     private LinkedListNode reverseList(LinkedListNode head, int reversalSize){
 
+        LinkedListNode next = null;
+        LinkedListNode previous = null;
+        LinkedListNode current = head;
+        LinkedListNode nextHead = null;
 
+        int iterationIndex = 1;
 
-        return null;
+        while(current != null && iterationIndex % reversalSize > 0){
+           next = current.next;
+           current.next = previous;
+           previous = current;
+           current = next;
+           iterationIndex++;
+           if(iterationIndex == reversalSize - 1){
+               iterationIndex = 1;
+           }
+        }
+        head = previous;
+
+        return head;
     }
 }
