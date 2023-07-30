@@ -9,7 +9,7 @@ package com.coding.practice.linkedlist;
  * Given a singly linked list A and an integer B, reverse the nodes of the list B at a time and return modified linked list.
  *
  *
- * Problem Constraints
+ * Problem Constraints:
  *
  * 1 <= |A| <= 103
  *
